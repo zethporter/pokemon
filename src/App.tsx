@@ -29,7 +29,7 @@ function App() {
       )}
       <button
         type="button"
-        className="btn btn-primary btn-wide"
+        className="btn bg-red-700 btn-wide hover:bg-pink-700 text-white"
         onClick={() => getPokemon()}
       >
         Get a Pokemon
