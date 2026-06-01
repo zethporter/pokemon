@@ -13,6 +13,7 @@ import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 
 import type { QueryClient } from "@tanstack/react-query";
+import { pokemonListQueryOptions } from "#/lib/pokemon-list";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -39,6 +40,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
+  beforeLoad: async ({ context: { queryClient } }) => {
+    queryClient.prefetchQuery(pokemonListQueryOptions);
+  },
   shellComponent: RootDocument,
 });
 

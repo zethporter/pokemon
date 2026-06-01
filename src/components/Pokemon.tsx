@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPokemon } from "#/lib/pokemon";
+import { getPokemonFromList } from "#/lib/pokemon";
 import { PokemonArtwork } from "./PokemonOfficialArt";
 import { Spinner } from "./ui/spinner";
 
-export const Pokemon = ({ pokemon }: { pokemon: string }) => {
+export const Pokemon = ({ url }: { url: string }) => {
   const { data, error, isLoading } = useQuery({
-    queryKey: [pokemon],
-    queryFn: ({ queryKey }) => getPokemon(queryKey[0]),
-    enabled: !!pokemon,
+    queryKey: [url],
+    queryFn: ({ queryKey }) => getPokemonFromList(queryKey[0]),
+    enabled: !!url,
     staleTime: Infinity,
   });
 

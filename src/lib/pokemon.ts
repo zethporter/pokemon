@@ -57,3 +57,7 @@ export const getPokemon = async (name: string) => {
     .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .json<Pokemon>();
 };
+
+export const getPokemonFromList = async (url: string) => {
+  return await ky.get(url).json<Pokemon>();
+};
