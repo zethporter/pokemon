@@ -16,7 +16,10 @@ export const pokemonListQueryOptions = queryOptions({
   queryKey: ["pokemon-list"],
   queryFn: async () =>
     await ky
-      .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+      .get(
+        import.meta.env.VITE_POKE_API_ENDPOINT +
+          "/pokemon?limit=100000&offset=0",
+      )
       .json<PokemonList>(),
   staleTime: Infinity,
   gcTime: Infinity,

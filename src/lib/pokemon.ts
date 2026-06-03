@@ -52,10 +52,9 @@ const pokemonSchema = z.object({
 
 type Pokemon = z.infer<typeof pokemonSchema>;
 
-export const getPokemon = async (name: string) => {
-  return await ky
-    .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-    .json<Pokemon>();
+export const getPokemon = async (id: number) => {
+  const poke_api = import.meta.env.VITE_POKE_API_ENDPOINT;
+  return await ky.get(`${poke_api}/pokemon/${id}`).json<Pokemon>();
 };
 
 export const getPokemonFromList = async (url: string) => {

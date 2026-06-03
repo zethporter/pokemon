@@ -2,11 +2,13 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  Outlet,
 } from "@tanstack/react-router";
+
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ThemeProvider } from "next-themes";
-import { ThemeSwitcher } from "#/components/theme-switcher";
+import { Layout } from "#/components/Layout";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
@@ -46,7 +48,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   shellComponent: RootDocument,
 });
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument() {
   return (
     <html lang="en">
       <head>
@@ -59,11 +61,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         attribute="class"
         disableTransitionOnChange
       >
-        <body>
-          <div className="fixed z-50 top-2 right-2">
-            <ThemeSwitcher />
-          </div>
-          {children}
+        <body className="h-screen w-full overflow-hidden">
+          <Layout>
+            <Outlet />
+          </Layout>
           <TanStackDevtools
             config={{
               position: "bottom-right",

@@ -1,17 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPokemonFromList } from "#/lib/pokemon";
+import { getPokemon } from "#/lib/pokemon";
 import { PokemonArtwork } from "./PokemonOfficialArt";
-import { Spinner } from "./ui/spinner";
+import { useSearch } from "@tanstack/react-router";
+import { Loading } from "./Loading";
 
-export const Pokemon = ({ url }: { url: string }) => {
+export const Pokemon = () => {
+  const { pokeId } = useSearch({ from: "/" });
   const { data, error, isLoading } = useQuery({
-    queryKey: [url],
-    queryFn: ({ queryKey }) => getPokemonFromList(queryKey[0]),
-    enabled: !!url,
+    queryKey: ["pokemon", pokeId],
+    queryFn: ({ queryKey }) => getPokemon(Number(queryKey[1])),
+    enabled: !!pokeId,
     staleTime: Infinity,
   });
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <Loading />;
   if (error) return <div>{error.message}</div>;
   if (!data) return null;
 
